@@ -1,0 +1,41 @@
+﻿<UserControl
+    x:Class="RESTTest.UserControls.UCInputData"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RESTTest.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400" 
+    DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Text="Url" 
+                   Style="{StaticResource RT_TextBlockStyle}" 
+                   Grid.Column="0" Grid.Row="0"/>
+        <TextBox x:Name="Url" 
+                 HorizontalAlignment="Stretch"
+                 Text="{Binding Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Column="1" Grid.Row="0"/>
+        <TextBlock Text="Method" 
+                   Style="{StaticResource RT_TextBlockStyle}" 
+                   Grid.Column="0" Grid.Row="1"/>
+        <ComboBox x:Name="Method" 
+                  Grid.Column="1" Grid.Row="1" 
+                  SelectedItem="{Binding Method}">
+            <ComboBoxItem Content="GET"/>
+            <ComboBoxItem Content="POST"/>
+        </ComboBox>
+
+    </Grid>
+</UserControl>
