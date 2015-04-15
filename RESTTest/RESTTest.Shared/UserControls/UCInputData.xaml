@@ -12,27 +12,31 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
         <TextBlock Text="Url" 
                    Style="{StaticResource RT_TextBlockStyle}" 
                    Grid.Column="0" Grid.Row="0"/>
-        <TextBox x:Name="Url" 
+        <TextBox x:Name="Url"
                  HorizontalAlignment="Stretch"
                  Text="{Binding Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Margin="0,5"
                  Grid.Column="1" Grid.Row="0"/>
+        
         <TextBlock Text="Method" 
                    Style="{StaticResource RT_TextBlockStyle}" 
                    Grid.Column="0" Grid.Row="1"/>
         <ComboBox x:Name="Method" 
                   Grid.Column="1" Grid.Row="1" 
-                  SelectedItem="{Binding Method}">
+                  Margin="0,5"
+                  SelectedValue="{Binding Method, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ComboBoxItem Content="GET"/>
             <ComboBoxItem Content="POST"/>
         </ComboBox>
