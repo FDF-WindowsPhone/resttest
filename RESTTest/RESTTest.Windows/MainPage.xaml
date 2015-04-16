@@ -29,18 +29,11 @@
                 </Grid.ColumnDefinitions>
                 <controls:UCInputData Grid.Column="0"
                                       Margin="5"/>
-                <ScrollViewer Grid.Column="1"
-                              Margin="5"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Stretch" Background="DarkGray">
-                    <TextBlock x:Name="Result"
-                               Text="{Binding Main.Result, Source={StaticResource Locator}}"
-                               HorizontalAlignment="Stretch"
-                               VerticalAlignment="Stretch" TextWrapping="Wrap"/>
-                </ScrollViewer>
-                
+                <controls:UCResults Grid.Column="1"
+                                    Margin="5"/>
             </Grid>
             <controls:UCActions Grid.Column="0" Grid.Row="2"/>
         </Grid>
+        <controls:UCStore Grid.Column="1"/>
     </Grid>
 </Page>

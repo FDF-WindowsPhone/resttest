@@ -6,40 +6,38 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="300"
+    d:DesignHeight="500"
     d:DesignWidth="400" 
     DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3*"/>
-        </Grid.ColumnDefinitions>
-
+    <StackPanel Orientation="Vertical">
+        <TextBlock Text="Protocol" 
+                   Style="{StaticResource RT_TextBlockStyle}" />
+        <ComboBox x:Name="Protocol" 
+                  Margin="0,5"
+                  SelectedIndex="{Binding Method, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBoxItem Content="HTTP"/>
+            <ComboBoxItem Content="HTTPS"/>
+        </ComboBox>
         <TextBlock Text="Url" 
-                   Style="{StaticResource RT_TextBlockStyle}" 
-                   Grid.Column="0" Grid.Row="0"/>
+                   Style="{StaticResource RT_TextBlockStyle}"/>
         <TextBox x:Name="Url"
                  HorizontalAlignment="Stretch"
                  Text="{Binding Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Margin="0,5"
-                 Grid.Column="1" Grid.Row="0"/>
-        
+                 Margin="0,5"/>
+<!--        <TextBlock Text="Parameters" 
+                   Style="{StaticResource RT_TextBlockStyle}"/>
+        <TextBox x:Name="Parameters"
+                 HorizontalAlignment="Stretch"
+                 Text="{Binding Parameters, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Margin="0,5"/>-->
         <TextBlock Text="Method" 
-                   Style="{StaticResource RT_TextBlockStyle}" 
-                   Grid.Column="0" Grid.Row="1"/>
+                   Style="{StaticResource RT_TextBlockStyle}"/>
         <ComboBox x:Name="Method" 
-                  Grid.Column="1" Grid.Row="1" 
                   Margin="0,5"
-                  SelectedValue="{Binding Method, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                  SelectedIndex="{Binding Method, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ComboBoxItem Content="GET"/>
             <ComboBoxItem Content="POST"/>
         </ComboBox>
-
-    </Grid>
+    </StackPanel>
 </UserControl>

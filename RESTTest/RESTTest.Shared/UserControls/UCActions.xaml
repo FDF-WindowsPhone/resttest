@@ -21,10 +21,12 @@
         <Button x:Name="Save" 
                 Content="Save"
                 Grid.Column="1"
-                Style="{StaticResource RT_ButtonStyle}"/>
+                Style="{StaticResource RT_ButtonStyle}"
+                Command="{Binding SaveCommand, Mode=OneWay}"/>
         <Button x:Name="Clean" 
                 Content="Clean"
                 Grid.Column="2"
-                Style="{StaticResource RT_ButtonStyle}"/>
+                Style="{StaticResource RT_ButtonStyle}"
+                Command="{Binding CleanCommand, Mode=OneWay}"/>
     </Grid>
 </UserControl>
