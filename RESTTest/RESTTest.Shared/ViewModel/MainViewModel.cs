@@ -9,7 +9,9 @@ using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Net.Http;
 using Windows.UI.Popups;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Newtonsoft.Json;
 using RESTTest.Models;
 using WinRTXamlToolkit.Controls;
 using WinRTXamlToolkit.Controls.Extensions;
@@ -21,13 +23,13 @@ namespace RESTTest.ViewModel
 
         public MainViewModel()
         {
-            Protocol = PROTOCOLS.HTTP;
+            Protocol = 0;
             Method = 0;
+            WaitVisibility = Visibility.Collapsed;
         }
 
-        private PROTOCOLS _protocol;
-
-        public PROTOCOLS Protocol
+        private int _protocol;
+        public int Protocol
         {
             get { return _protocol; }
             set
@@ -49,7 +51,6 @@ namespace RESTTest.ViewModel
         }
 
         private int _method;
-
         public int Method
         {
             get { return _method; }
@@ -87,6 +88,17 @@ namespace RESTTest.ViewModel
             }
         }
 
+        private Visibility _waitVisibility;
+        public Visibility WaitVisibility
+        {
+            get { return _waitVisibility; }
+            set
+            {
+                _waitVisibility = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private ObservableCollection<RTRequest> _requestsList = new ObservableCollection<RTRequest>();
         public ObservableCollection<RTRequest> RequestsList
         {
@@ -109,18 +121,31 @@ namespace RESTTest.ViewModel
 
         private async void Run()
         {
+            WaitVisibility = Visibility.Visible;
+
             Result = "";
             string protocol = "";
             switch (Protocol)
             {
-                case PROTOCOLS.HTTPS:
-                    protocol = "https://";
-                    break;
-                case PROTOCOLS.HTTP:
+                case RTConsts.PROTOCOL_HTTP:
                     protocol = "http://";
                     break;
+                case RTConsts.PROTOCOL_HTTPS:
+                    protocol = "https://";
+                    break;                
                 default:
                     protocol = "http://";
+                    break;
+            }
+
+            HttpMethod method = HttpMethod.Get;
+            switch (Method)
+            {
+                case RTConsts.METHOD_GET:
+                    method = HttpMethod.Get;
+                    break;
+                case RTConsts.METHOD_POST:
+                    method = HttpMethod.Post;
                     break;
             }
 
@@ -129,7 +154,7 @@ namespace RESTTest.ViewModel
 
             HttpClient client = new HttpClient();
 
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, URI);
+            HttpRequestMessage request = new HttpRequestMessage(method, URI);
             /*
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
             request.Headers.AcceptCharset.Add(new StringWithQualityHeaderValue("utf-8", 0.7));
@@ -147,6 +172,8 @@ namespace RESTTest.ViewModel
 
             Result = content;
             ResultCode = string.Format("STATUS: {0}", result.StatusCode);
+
+            WaitVisibility = Visibility.Collapsed;
         }
 
         #endregion Run Command
@@ -163,8 +190,8 @@ namespace RESTTest.ViewModel
             Result = "";
             ResultCode = "";
             Url = "";
-            Protocol = PROTOCOLS.HTTP;
-            Method = 0;
+            Protocol = RTConsts.PROTOCOL_HTTP;
+            Method = RTConsts.METHOD_GET;
         }
 
         #endregion Clean Command
@@ -190,6 +217,7 @@ namespace RESTTest.ViewModel
             {
                 case "Save":
                     string name = dialog.InputText;
+
                     RTRequest request = new RTRequest() {Method = Method, Name = name, Protocol = Protocol, Url = Url};
                     RequestsList.Add(request);
                     break;
@@ -236,5 +264,17 @@ namespace RESTTest.ViewModel
         #endregion Select Request Command
 
         #endregion Commands
+
+        public string GetAsJSON()
+        {
+            string json = JsonConvert.SerializeObject(RequestsList);
+
+            return json;
+        }
+
+        public void LoadFromJSON(string json)
+        {
+            RequestsList = JsonConvert.DeserializeObject<ObservableCollection<RTRequest>>(json);
+        }
     }
 }

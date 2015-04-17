@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Microsoft.Practices.ServiceLocation;
+using RESTTest.ViewModel;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=234227
 
@@ -68,8 +70,8 @@ namespace RESTTest
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    // TODO: Load state from previously suspended application
                 }
+                LoadStoredRequests();
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
@@ -130,8 +132,29 @@ namespace RESTTest
         {
             var deferral = e.SuspendingOperation.GetDeferral();
 
-            // TODO: Save application state and stop any background activity
+            SaveStoredRequests();
+
             deferral.Complete();
+        }
+
+        private void LoadStoredRequests()
+        {
+            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
+            Windows.Storage.ApplicationDataContainer localSettings =
+                Windows.Storage.ApplicationData.Current.LocalSettings;
+
+            if (localSettings.Values.ContainsKey("RequestsList"))
+            {
+                main.LoadFromJSON(localSettings.Values["RequestsList"] as string);
+            }
+        }
+
+        private void SaveStoredRequests()
+        {
+            var main = ServiceLocator.Current.GetInstance<MainViewModel>();
+            Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+
+            localSettings.Values["RequestsList"] = main.GetAsJSON();
         }
     }
 }

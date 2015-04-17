@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Common\ObservableDictionary.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\RTConsts.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\RTRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserControls\UCActions.xaml.cs">
       <DependentUpon>UCActions.xaml</DependentUpon>
@@ -31,6 +32,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UserControls\UCStore.xaml.cs">
       <DependentUpon>UCStore.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControls\UCWait.xaml.cs">
+      <DependentUpon>UCWait.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModel\ViewModelLocator.cs" />
@@ -53,6 +57,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)UserControls\UCStore.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControls\UCWait.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
