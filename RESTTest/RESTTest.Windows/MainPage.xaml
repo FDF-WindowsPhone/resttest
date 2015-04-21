@@ -1,13 +1,12 @@
-﻿<Page
-    x:Class="RESTTest.MainPage"
+﻿<Page xmlns:UI="using:Microsoft.Advertising.WinRT.UI"  x:Class="RESTTest.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:RESTTest.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="{StaticResource RT_BgColor}">
     	<VisualStateManager.VisualStateGroups>
     		<VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="DefaultLayout">
@@ -140,8 +139,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock x:Name="AppTitle" Text="REST TEST" 
-                       Margin="5"
-                       Style="{StaticResource HeaderTextBlockStyle}"/>
+                       Style="{StaticResource RT_TitleStyle}"/>
             <ScrollViewer Grid.Column="0" Grid.Row="1" HorizontalScrollMode="Disabled" VerticalScrollMode="Auto">
                 <Grid x:Name="ResizableGrid" >
                     <Grid.RowDefinitions>
@@ -152,11 +150,16 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition x:Name="ResizableColumn" Width="*"/>
                     </Grid.ColumnDefinitions>
-
                     <controls:UCInputData Grid.Column="0"
                                       Margin="5"/>
-                    <controls:UCResults x:Name="uCResults" Grid.Column="1"
-                                    Margin="5"/>
+                    <StackPanel x:Name="uCResults" Grid.Column="1" Orientation="Vertical">
+                        <UI:AdControl AdUnitId="11391081" ApplicationId="f56a0225-e759-4f78-9810-9ce455079e60" 
+                                      HorizontalAlignment="Stretch" 
+                                      Height="90" 
+                                      VerticalAlignment="Top"/>
+                        <controls:UCResults Margin="5"/>
+                    </StackPanel>
+                    
                 </Grid>
             </ScrollViewer>
             <controls:UCActions Grid.Column="0" Grid.Row="2"/>
@@ -170,7 +173,9 @@
                     VerticalAlignment="Top" HorizontalAlignment="Center" >
                 <Button.Flyout>
                     <Flyout>
-                        <controls:UCStore/>
+                        <Border BorderThickness="2" BorderBrush="{StaticResource RT_FgColor}">
+                            <controls:UCStore/>
+                        </Border>                        
                     </Flyout>
                 </Button.Flyout>
             </Button>

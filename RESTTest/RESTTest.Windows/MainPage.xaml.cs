@@ -26,6 +26,7 @@ namespace RESTTest
         {
             this.InitializeComponent();
             this.SizeChanged += MainPage_SizeChanged;
+            
         }
 
         void MainPage_SizeChanged(object sender, SizeChangedEventArgs e) 

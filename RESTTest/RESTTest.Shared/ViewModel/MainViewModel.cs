@@ -165,71 +165,77 @@ namespace RESTTest.ViewModel
             //string Parameters = Uri.EscapeUriString("");
 
             HttpClient client = new HttpClient();
-
-            HttpRequestMessage request = new HttpRequestMessage(method, URI);
-            if (Raw != null)
-            {
-                try
-                {
-                    var jsonedString = JToken.Parse(Raw);
-                    client.DefaultRequestHeaders.ExpectContinue = false;
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    request.Content = new StringContent(Raw, System.Text.Encoding.UTF8, "application/json");
-                    
-                }
-                catch (JsonReaderException jex)
-                {
-                    ResultCode = "JSON MALFORMED";
-                    Result = string.Format("{0}", jex.Message);
-                    WaitVisibility = Visibility.Collapsed;
-
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    ResultCode = "EXCEPTION";
-                    Result = string.Format("EXCEPTION {0}", ex.Message);
-                    WaitVisibility = Visibility.Collapsed;
-
-                    return;
-                }                
-            }
-            
-            /*
-            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
-            request.Headers.AcceptCharset.Add(new StringWithQualityHeaderValue("utf-8", 0.7));
-            request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue("en-us", 0.5));
-            
-            request.Content = new StreamContent(new MemoryStream(System.Text.Encoding.UTF8.GetBytes(Parameters)));
-            request.Content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-             
-            request.Headers.Host = "www.indianrail.gov.in";
-            request.Headers.UserAgent.Add(new ProductInfoHeaderValue("Mozilla", "5.0"));
-            request.Headers.Referrer = new Uri("http://www.indianrail.gov.in/pnr_stat.html");
-            */
             try
             {
-                var result = await client.SendAsync(request);
-                var content = await result.Content.ReadAsStringAsync();
+                HttpRequestMessage request = new HttpRequestMessage(method, URI);
+                if (Raw != null)
+                {
+                    try
+                    {
+                        var jsonedString = JToken.Parse(Raw);
+                        client.DefaultRequestHeaders.ExpectContinue = false;
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        request.Content = new StringContent(Raw, System.Text.Encoding.UTF8, "application/json");
 
+                    }
+                    catch (JsonReaderException jex)
+                    {
+                        ResultCode = "JSON MALFORMED";
+                        Result = string.Format("{0}", jex.Message);
+                        WaitVisibility = Visibility.Collapsed;
+
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        ResultCode = "EXCEPTION";
+                        Result = string.Format("EXCEPTION {0}", ex.Message);
+                        WaitVisibility = Visibility.Collapsed;
+
+                        return;
+                    }
+                }
+
+                /*
+                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
+                request.Headers.AcceptCharset.Add(new StringWithQualityHeaderValue("utf-8", 0.7));
+                request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue("en-us", 0.5));
+            
+                request.Content = new StreamContent(new MemoryStream(System.Text.Encoding.UTF8.GetBytes(Parameters)));
+                request.Content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+             
+                request.Headers.Host = "www.indianrail.gov.in";
+                request.Headers.UserAgent.Add(new ProductInfoHeaderValue("Mozilla", "5.0"));
+                request.Headers.Referrer = new Uri("http://www.indianrail.gov.in/pnr_stat.html");
+                */
                 try
                 {
-                    var jsonedString = JToken.Parse(content);
-                    Result = jsonedString.ToString();
+                    var result = await client.SendAsync(request);
+                    var content = await result.Content.ReadAsStringAsync();
 
+                    try
+                    {
+                        var jsonedString = JToken.Parse(content);
+                        Result = jsonedString.ToString();
+
+                    }
+                    catch (JsonReaderException jex)
+                    {
+                        Result = content;
+                    }
+                    ResultCode = string.Format("{0}", result.StatusCode);
                 }
-                catch (JsonReaderException jex)
+                catch (Exception exc)
                 {
-                    Result = content;    
-                }                
-                ResultCode = string.Format("{0}", result.StatusCode);
+                    ResultCode = "EXCEPTION";
+                    Result = string.Format("EXCEPTION {0}", exc.Message);
+                }
+
             }
-            catch (Exception exc)
+            catch(Exception)
             {
-                ResultCode = "EXCEPTION";
-                Result = string.Format("EXCEPTION {0}", exc.Message); 
+
             }
-            
 
             WaitVisibility = Visibility.Collapsed;
         }
