@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RESTTest.Windows")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("REST Test")]
+[assembly: AssemblyDescription("REST Client")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("RESTTest.Windows")]
+[assembly: AssemblyCompany("FDF Dev")]
+[assembly: AssemblyProduct("RESTTest")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

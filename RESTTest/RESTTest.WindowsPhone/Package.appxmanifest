@@ -3,8 +3,8 @@
   <Identity Name="91834e24-9198-447b-9877-8744e6721d7b" Publisher="CN=Fernando" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="91834e24-9198-447b-9877-8744e6721d7b" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>RESTTest.WindowsPhone</DisplayName>
-    <PublisherDisplayName>Fernando</PublisherDisplayName>
+    <DisplayName>REST Test</DisplayName>
+    <PublisherDisplayName>FDFDev</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Prerequisites>
