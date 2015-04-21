@@ -30,18 +30,23 @@ namespace RESTTest
 
         void MainPage_SizeChanged(object sender, SizeChangedEventArgs e) 
         { 
-            if (e.NewSize.Width < 500) 
-                {
-                    VisualStateManager.GoToState(this, "MinimalLayout", true); 
-                } 
-                else if (e.NewSize.Width < e.NewSize.Height) 
-                {
-                    VisualStateManager.GoToState(this, "Portrait", true); 
-                } 
-                else 
-                {
-                    VisualStateManager.GoToState(this, "Default", true); 
-                } 
+#if WINDOWS_PHONE_APP
+            VisualStateManager.GoToState(this, "MinimalLayout", true); 
+#else
+            if (e.NewSize.Width < 700) 
+            {
+                VisualStateManager.GoToState(this, "MinimalLayout", true); 
+            } 
+            else if (e.NewSize.Width < e.NewSize.Height) 
+            {
+                VisualStateManager.GoToState(this, "PortraitLayout", true); 
+            } 
+            else 
+            {
+                VisualStateManager.GoToState(this, "DefaultLayout", true); 
+            }
+#endif
+
         } 
     }
 }

@@ -26,19 +26,26 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Rectangle Grid.RowSpan="2" Grid.Column="0"
                    VerticalAlignment="Stretch" Fill="{StaticResource RT_ColorBg}"/>
-        <TextBlock Text="Stored Connections" Style="{StaticResource RT_StatusCodeStyle}" 
+        <TextBlock Style="{StaticResource RT_StatusCodeStyle}" 
+                   Text="Stored"
                    Grid.Row="0" Grid.Column="1"
-                   TextWrapping="WrapWholeWords" 
+                   TextWrapping="WrapWholeWords"
+                   TextAlignment="Center"/>
+        <TextBlock Style="{StaticResource RT_StatusCodeStyle}" 
+                   Text="Connections"
+                   Grid.Row="1" Grid.Column="1"
+                   TextWrapping="WrapWholeWords"
                    TextAlignment="Center"/>
         <ListView IsItemClickEnabled="True"
                   SelectionMode="None"
                   ItemsSource="{Binding RequestsList}" 
                   ItemTemplate="{StaticResource StoredConnectionsTemplate}"
-                  Grid.Row="1" Grid.Column="1">
+                  Grid.Row="2" Grid.Column="1">
             <i:Interaction.Behaviors>
                 <Core:EventTriggerBehavior EventName="ItemClick">
                     <Core:InvokeCommandAction Command="{Binding SelectRequestCommand, Mode=OneWay}" />
