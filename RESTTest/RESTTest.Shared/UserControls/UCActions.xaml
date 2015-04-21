@@ -24,7 +24,7 @@
                 Style="{StaticResource RT_ButtonStyle}"
                 Command="{Binding SaveCommand, Mode=OneWay}"/>
         <Button x:Name="Clean" 
-                Content="Clean"
+                Content="Clean All"
                 Grid.Column="2"
                 Style="{StaticResource RT_ButtonStyle}"
                 Command="{Binding CleanCommand, Mode=OneWay}"/>

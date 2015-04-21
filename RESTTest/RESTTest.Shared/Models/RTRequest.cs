@@ -10,6 +10,6 @@ namespace RESTTest.Models
         public int Protocol { get; set; }
         public string Url { get; set; }
         public int Method { get; set; }
-
+        public string Raw { get; set; }
     }
 }

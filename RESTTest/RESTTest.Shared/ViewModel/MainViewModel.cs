@@ -12,6 +12,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using RESTTest.Models;
 using WinRTXamlToolkit.Controls;
 using WinRTXamlToolkit.Controls.Extensions;
@@ -57,6 +58,17 @@ namespace RESTTest.ViewModel
             set
             {
                 _method = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private string _raw;
+        public string Raw
+        {
+            get { return _raw; }
+            set
+            {
+                _raw = value;
                 RaisePropertyChanged();
             }
         }
@@ -155,6 +167,34 @@ namespace RESTTest.ViewModel
             HttpClient client = new HttpClient();
 
             HttpRequestMessage request = new HttpRequestMessage(method, URI);
+            if (Raw != null)
+            {
+                try
+                {
+                    var jsonedString = JToken.Parse(Raw);
+                    client.DefaultRequestHeaders.ExpectContinue = false;
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    request.Content = new StringContent(Raw, System.Text.Encoding.UTF8, "application/json");
+                    
+                }
+                catch (JsonReaderException jex)
+                {
+                    ResultCode = "JSON MALFORMED";
+                    Result = string.Format("{0}", jex.Message);
+                    WaitVisibility = Visibility.Collapsed;
+
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    ResultCode = "EXCEPTION";
+                    Result = string.Format("EXCEPTION {0}", ex.Message);
+                    WaitVisibility = Visibility.Collapsed;
+
+                    return;
+                }                
+            }
+            
             /*
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
             request.Headers.AcceptCharset.Add(new StringWithQualityHeaderValue("utf-8", 0.7));
@@ -167,18 +207,36 @@ namespace RESTTest.ViewModel
             request.Headers.UserAgent.Add(new ProductInfoHeaderValue("Mozilla", "5.0"));
             request.Headers.Referrer = new Uri("http://www.indianrail.gov.in/pnr_stat.html");
             */
-            var result = await client.SendAsync(request);
-            var content = await result.Content.ReadAsStringAsync();
+            try
+            {
+                var result = await client.SendAsync(request);
+                var content = await result.Content.ReadAsStringAsync();
 
-            Result = content;
-            ResultCode = string.Format("STATUS: {0}", result.StatusCode);
+                try
+                {
+                    var jsonedString = JToken.Parse(content);
+                    Result = jsonedString.ToString();
+
+                }
+                catch (JsonReaderException jex)
+                {
+                    Result = content;    
+                }                
+                ResultCode = string.Format("{0}", result.StatusCode);
+            }
+            catch (Exception exc)
+            {
+                ResultCode = "EXCEPTION";
+                Result = string.Format("EXCEPTION {0}", exc.Message); 
+            }
+            
 
             WaitVisibility = Visibility.Collapsed;
         }
 
         #endregion Run Command
 
-        #region Clean Command
+        #region Clean All Command
         private RelayCommand _cleanCommand;
         public RelayCommand CleanCommand
         {
@@ -190,11 +248,12 @@ namespace RESTTest.ViewModel
             Result = "";
             ResultCode = "";
             Url = "";
+            Raw = "";
             Protocol = RTConsts.PROTOCOL_HTTP;
             Method = RTConsts.METHOD_GET;
         }
 
-        #endregion Clean Command
+        #endregion Clean All Command
 
         #region Save Command
         private RelayCommand _saveCommand;
@@ -218,7 +277,7 @@ namespace RESTTest.ViewModel
                 case "Save":
                     string name = dialog.InputText;
 
-                    RTRequest request = new RTRequest() {Method = Method, Name = name, Protocol = Protocol, Url = Url};
+                    RTRequest request = new RTRequest() {Method = Method, Name = name, Protocol = Protocol, Url = Url, Raw = Raw };
                     RequestsList.Add(request);
                     break;
                 case "Cancel":
@@ -259,6 +318,7 @@ namespace RESTTest.ViewModel
             Url = request.Url;
             Method = request.Method;
             Protocol = request.Protocol;
+            Raw = request.Raw;
         }
 
         #endregion Select Request Command
