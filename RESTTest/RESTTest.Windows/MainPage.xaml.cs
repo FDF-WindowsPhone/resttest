@@ -25,6 +25,23 @@ namespace RESTTest
         public MainPage()
         {
             this.InitializeComponent();
+            this.SizeChanged += MainPage_SizeChanged;
         }
+
+        void MainPage_SizeChanged(object sender, SizeChangedEventArgs e) 
+        { 
+            if (e.NewSize.Width < 500) 
+                {
+                    VisualStateManager.GoToState(this, "MinimalLayout", true); 
+                } 
+                else if (e.NewSize.Width < e.NewSize.Height) 
+                {
+                    VisualStateManager.GoToState(this, "Portrait", true); 
+                } 
+                else 
+                {
+                    VisualStateManager.GoToState(this, "Default", true); 
+                } 
+        } 
     }
 }
