@@ -147,7 +147,7 @@
                                       VerticalAlignment="Top"/>
             </StackPanel>
             
-            <ScrollViewer Grid.Column="0" Grid.Row="1" HorizontalScrollMode="Disabled" VerticalScrollMode="Auto">
+            <ScrollViewer Grid.Column="0" Grid.Row="1" HorizontalScrollMode="Disabled" VerticalScrollMode="Auto" MaxZoomFactor="1" MinZoomFactor="1">
                 <Grid x:Name="ResizableGrid" >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

@@ -32,6 +32,8 @@
                   SelectedIndex="{Binding Method, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <ComboBoxItem Content="GET"/>
             <ComboBoxItem Content="POST"/>
+            <ComboBoxItem Content="PUT"/>
+            <ComboBoxItem Content="DELETE"/>
         </ComboBox>
         <TextBlock Text="Raw" 
                    Style="{StaticResource RT_TextBlockStyle}"/>

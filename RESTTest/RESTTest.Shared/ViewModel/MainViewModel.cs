@@ -159,6 +159,12 @@ namespace RESTTest.ViewModel
                 case RTConsts.METHOD_POST:
                     method = HttpMethod.Post;
                     break;
+                case RTConsts.METHOD_PUT:
+                    method = HttpMethod.Put;
+                    break;
+                case RTConsts.METHOD_DELETE:
+                    method = HttpMethod.Delete;
+                    break;
             }
 
             string URI = string.Format("{0}{1}", protocol, Url);
@@ -196,18 +202,6 @@ namespace RESTTest.ViewModel
                     }
                 }
 
-                /*
-                request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
-                request.Headers.AcceptCharset.Add(new StringWithQualityHeaderValue("utf-8", 0.7));
-                request.Headers.AcceptLanguage.Add(new StringWithQualityHeaderValue("en-us", 0.5));
-            
-                request.Content = new StreamContent(new MemoryStream(System.Text.Encoding.UTF8.GetBytes(Parameters)));
-                request.Content.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
-             
-                request.Headers.Host = "www.indianrail.gov.in";
-                request.Headers.UserAgent.Add(new ProductInfoHeaderValue("Mozilla", "5.0"));
-                request.Headers.Referrer = new Uri("http://www.indianrail.gov.in/pnr_stat.html");
-                */
                 try
                 {
                     var result = await client.SendAsync(request);
@@ -304,27 +298,34 @@ namespace RESTTest.ViewModel
         private async void SelectRequest(ItemClickEventArgs args)
         {
             RTRequest request = args.ClickedItem as RTRequest;
-            string message = string.Format("Do you want to load {0}", request.Name);
+            string message = string.Format("What do you want to do?\nLoad {0}\nDelete {0}", request.Name);
             MessageDialog dialog = new MessageDialog(message, "Attention!!");
-            dialog.Commands.Add(new UICommand("Yes", new UICommandInvokedHandler(YesCommandHandler), request));
-            dialog.Commands.Add(new UICommand("No", new UICommandInvokedHandler(NoCommandHandler)));
+            dialog.Commands.Add(new UICommand("Load", new UICommandInvokedHandler(LoadCommandHandler), request));
+            dialog.Commands.Add(new UICommand("Delete", new UICommandInvokedHandler(DeleteCommandHandler), request));
+            dialog.Commands.Add(new UICommand("Cancel", new UICommandInvokedHandler(CancelCommandHandler)));
             dialog.DefaultCommandIndex = 0;
-            dialog.CancelCommandIndex = 1;
+            dialog.CancelCommandIndex = 2;
             await dialog.ShowAsync();
         }
 
-        private void NoCommandHandler(IUICommand command)
+        private void CancelCommandHandler(IUICommand command)
         {
             // do Nothing
         }
 
-        private void YesCommandHandler(IUICommand command)
+        private void LoadCommandHandler(IUICommand command)
         {
             RTRequest request = command.Id as RTRequest;
             Url = request.Url;
             Method = request.Method;
             Protocol = request.Protocol;
             Raw = request.Raw;
+        }
+
+        private void DeleteCommandHandler(IUICommand command)
+        {
+            RTRequest request = command.Id as RTRequest;
+            RequestsList.Remove(request);
         }
 
         #endregion Select Request Command

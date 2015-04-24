@@ -11,6 +11,8 @@ namespace RESTTest.Models
 
         public const int METHOD_GET = 0;
         public const int METHOD_POST = 1;
+        public const int METHOD_PUT = 2;
+        public const int METHOD_DELETE = 3;
 
     }
 }
