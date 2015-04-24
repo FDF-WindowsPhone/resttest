@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="22239FDFDev.RestTest" Publisher="CN=C47B304D-0A0E-45D0-B12A-6202C2A5BAD9" Version="1.1.0.3" />
+  <Identity Name="22239FDFDev.RestTest" Publisher="CN=C47B304D-0A0E-45D0-B12A-6202C2A5BAD9" Version="1.1.0.7" />
   <Properties>
     <DisplayName>Rest Test</DisplayName>
     <PublisherDisplayName>FDFDev</PublisherDisplayName>
@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="RESTTest.Windows.App">
-      <m2:VisualElements DisplayName="REST Test" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="REST Tool for Windows" ForegroundText="light" BackgroundColor="#FFFFFF">
+      <m2:VisualElements DisplayName="REST Test" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="REST Tool for Windows" ForegroundText="dark" BackgroundColor="#FFFFFF">
         <m2:DefaultTile ShortName="REST Test">
           <m2:ShowNameOnTiles>
             <m2:ShowOn Tile="square150x150Logo" />

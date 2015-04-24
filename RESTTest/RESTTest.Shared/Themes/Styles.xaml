@@ -9,17 +9,26 @@
     
     <Style TargetType="TextBox">
         <Setter Property="Foreground" Value="{StaticResource RT_FgColor}"/>
+        <Setter Property="Background" Value="{StaticResource RT_FgColorOpposite}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource RT_FgColor}"/>
+    </Style>
+
+    <Style TargetType="ComboBox">
+        <Setter Property="Foreground" Value="{StaticResource RT_FgColor}"/>
+        <Setter Property="Background" Value="{StaticResource RT_FgColorOpposite}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource RT_FgColor}"/>
+    </Style>
+
+    <Style TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource RT_FgColor}"/>
     </Style>
 
     <Style x:Key="RT_TitleStyle" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource RT_FgColor}"/>
         <Setter Property="Margin" Value="10, 5"/>
         <Setter Property="FontSize" Value="30"/>
+        <Setter Property="FontWeight" Value="ExtraBold"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
-    </Style>
-
-    <Style x:Key="RT_ResultStyle" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{StaticResource RT_FgColor}"/>
     </Style>
     
     <Style x:Key="RT_TextBlockStyle" TargetType="TextBlock">
@@ -41,6 +50,7 @@
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="Foreground" Value="{StaticResource RT_FgColorOpposite}"/>
+        <Setter Property="Background" Value="{StaticResource RT_FgColor}"/>
         <Setter Property="BorderBrush" Value="{StaticResource RT_FgColorOpposite}"/>
     </Style>
 

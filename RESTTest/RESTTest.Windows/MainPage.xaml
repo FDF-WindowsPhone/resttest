@@ -138,8 +138,15 @@
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock x:Name="AppTitle" Text="REST TEST" 
-                       Style="{StaticResource RT_TitleStyle}"/>
+            <StackPanel>
+                <TextBlock x:Name="AppTitle" Text="REST TEST" 
+                           Style="{StaticResource RT_TitleStyle}"/>
+                <UI:AdControl AdUnitId="11391081" ApplicationId="f56a0225-e759-4f78-9810-9ce455079e60" 
+                                      HorizontalAlignment="Stretch" 
+                                      Height="90" 
+                                      VerticalAlignment="Top"/>
+            </StackPanel>
+            
             <ScrollViewer Grid.Column="0" Grid.Row="1" HorizontalScrollMode="Disabled" VerticalScrollMode="Auto">
                 <Grid x:Name="ResizableGrid" >
                     <Grid.RowDefinitions>
@@ -151,15 +158,9 @@
                         <ColumnDefinition x:Name="ResizableColumn" Width="*"/>
                     </Grid.ColumnDefinitions>
                     <controls:UCInputData Grid.Column="0"
-                                      Margin="5"/>
-                    <StackPanel x:Name="uCResults" Grid.Column="1" Orientation="Vertical">
-                        <UI:AdControl AdUnitId="11391081" ApplicationId="f56a0225-e759-4f78-9810-9ce455079e60" 
-                                      HorizontalAlignment="Stretch" 
-                                      Height="90" 
-                                      VerticalAlignment="Top"/>
-                        <controls:UCResults Margin="5"/>
-                    </StackPanel>
-                    
+                                          Margin="5"/>
+                    <controls:UCResults x:Name="uCResults" Grid.Column="1" Margin="5"/>
+
                 </Grid>
             </ScrollViewer>
             <controls:UCActions Grid.Column="0" Grid.Row="2"/>

@@ -1,0 +1,3 @@
+MainPackage=C:\Users\Fernando\Development\Personal\RESTTest\RESTTest\RESTTest.WindowsPhone\bin\Release\RESTTest.WindowsPhone_1.1.0.2_Bundle\RESTTest.WindowsPhone_1.1.0.2_AnyCPU.appx
+SymbolPackage=C:\Users\Fernando\Development\Personal\RESTTest\RESTTest\RESTTest.WindowsPhone\AppPackages\RESTTest.WindowsPhone_1.1.0.2_Test\RESTTest.WindowsPhone_1.1.0.2_AnyCPU.appxsym
+ResourcePack=C:\Users\Fernando\Development\Personal\RESTTest\RESTTest\RESTTest.WindowsPhone\bin\Release\RESTTest.WindowsPhone_1.1.0.2_Bundle\RESTTest.WindowsPhone_1.1.0.2_scale-100.appx

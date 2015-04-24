@@ -35,8 +35,8 @@
             <TextBlock x:Name="Result"
                        Text="{Binding Result}"
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                       TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                       Style="{StaticResource RT_ResultStyle}" />
+                       MinHeight="200"
+                       TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
         </ScrollViewer>
     </Grid>
 </UserControl>

@@ -13,6 +13,6 @@
     
     <Grid>
         <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Fill="{StaticResource RT_ColorBg}" Opacity="0.5"/>
-        <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="True" Width="50" Height="50"/>
+        <ProgressRing HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="True" Width="50" Height="50" Background="{x:Null}"/>
     </Grid>
 </UserControl>
