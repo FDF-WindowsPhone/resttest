@@ -7,35 +7,71 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="600"
-    d:DesignWidth="400" 
+    d:DesignWidth="500" 
     DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
 
     <StackPanel Orientation="Vertical">
-        <TextBlock Text="Protocol" 
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical" Margin="0,0,5,0">
+                <TextBlock Text="Protocol" 
                    Style="{StaticResource RT_TextBlockStyle}" />
-        <ComboBox x:Name="Protocol" 
+                <ComboBox x:Name="Protocol" 
                   Margin="0,5"
                   SelectedIndex="{Binding Protocol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <ComboBoxItem Content="HTTP"/>
-            <ComboBoxItem Content="HTTPS"/>
-        </ComboBox>
+                    <ComboBoxItem Content="HTTP"/>
+                    <ComboBoxItem Content="HTTPS"/>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Margin="5,0,0,0">
+                <TextBlock Text="Method" 
+                   Style="{StaticResource RT_TextBlockStyle}"/>
+                <ComboBox x:Name="Method" 
+                  Margin="0,5"
+                  SelectedIndex="{Binding Method, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="GET"/>
+                    <ComboBoxItem Content="POST"/>
+                    <ComboBoxItem Content="PUT"/>
+                    <ComboBoxItem Content="DELETE"/>
+                </ComboBox>
+            </StackPanel>
+        </Grid>
         <TextBlock Text="Url" 
                    Style="{StaticResource RT_TextBlockStyle}"/>
         <TextBox x:Name="Url"
                  HorizontalAlignment="Stretch"
                  Text="{Binding Url, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Margin="0,5" InputScope="Url"/>
-        <TextBlock Text="Method" 
-                   Style="{StaticResource RT_TextBlockStyle}"/>
-        <ComboBox x:Name="Method" 
-                  Margin="0,5"
-                  SelectedIndex="{Binding Method, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <ComboBoxItem Content="GET"/>
-            <ComboBoxItem Content="POST"/>
-            <ComboBoxItem Content="PUT"/>
-            <ComboBoxItem Content="DELETE"/>
-        </ComboBox>
-        <TextBlock Text="Raw" 
+        <Grid Margin="0,10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Headers"
+                           Style="{StaticResource RT_TextBlockStyle}"/>
+                <Button x:Name="BtnNewHeader" 
+                        Style="{StaticResource RT_ButtonStyle}"
+                        Content="+" Grid.Column="1"/>
+                <Button x:Name="BtnRemoveHeader" 
+                        Style="{StaticResource RT_ButtonStyle}"
+                        Content="-" Grid.Column="2"/>
+            </Grid>
+            <Border Grid.Row="1" 
+                    BorderBrush="{StaticResource RT_FgColor}" BorderThickness="2" Background="{StaticResource RT_FgColorOpposite}"
+                    >
+                <ListView ItemsSource="{Binding Headers}" MinHeight="40"/>
+            </Border>            
+        </Grid>
+        <TextBlock Text="POST Data" 
                    Style="{StaticResource RT_TextBlockStyle}"/>
         <TextBox x:Name="RawBox" 
                  Text="{Binding Raw, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

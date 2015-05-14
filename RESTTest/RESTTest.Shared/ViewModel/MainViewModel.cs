@@ -13,9 +13,11 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RESTTest.Common;
 using RESTTest.Models;
 using WinRTXamlToolkit.Controls;
 using WinRTXamlToolkit.Controls.Extensions;
+using RelayCommand = GalaSoft.MvvmLight.Command.RelayCommand;
 
 namespace RESTTest.ViewModel
 {
@@ -73,6 +75,17 @@ namespace RESTTest.ViewModel
             }
         }
 
+        private ObservableDictionary _headers = new ObservableDictionary();
+        public ObservableDictionary Headers
+        {
+            get { return _headers; }
+            set
+            {
+                _headers = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private string _result;
         public string Result { 
             get
@@ -123,6 +136,9 @@ namespace RESTTest.ViewModel
         } 
 
         #region Commands
+
+        #region Add Header
+        #endregion Add Header
 
         #region Run Command
         private RelayCommand _runCommand;
