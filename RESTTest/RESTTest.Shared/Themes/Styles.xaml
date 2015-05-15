@@ -3,14 +3,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <SolidColorBrush x:Key="RT_BgColor" Color="DarkOliveGreen"/>
-    <SolidColorBrush x:Key="RT_FgColor" Color="White"/>
+    <SolidColorBrush x:Key="RT_FgColor" Color="Green"/>
     <SolidColorBrush x:Key="RT_FgColorOpposite" Color="Black"/>
     <SolidColorBrush x:Key="RT_ColorBg" Color="Black"/>
     <ImageBrush x:Key="RT_BgImage" 
                 ImageSource="ms-appx:///Assets/bg_grid.jpg" 
                 Stretch="UniformToFill" 
                 Opacity="0.3" />
-    
+
     <Style TargetType="TextBox">
         <Setter Property="Foreground" Value="{StaticResource RT_FgColor}"/>
         <Setter Property="Background" Value="{StaticResource RT_FgColorOpposite}"/>

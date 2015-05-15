@@ -281,8 +281,8 @@ namespace RESTTest.ViewModel
                     }
                     catch (Exception ex)
                     {
-                        ResultCode = "EXCEPTION";
-                        Result = string.Format("EXCEPTION {0}", ex.Message);
+                        ResultCode = "FAILURE";
+                        Result = string.Format("ERROR {0}", ex.Message);
                         WaitVisibility = Visibility.Collapsed;
 
                         return;
@@ -308,8 +308,17 @@ namespace RESTTest.ViewModel
                 }
                 catch (Exception exc)
                 {
-                    ResultCode = "EXCEPTION";
-                    Result = string.Format("EXCEPTION {0}", exc.Message);
+                    ResultCode = "FAILURE";
+                    if (exc.InnerException != null)
+                    {
+                        Exception inner = exc.InnerException;
+                        Result = string.Format("{0}", inner.Message);    
+                    }
+                    else
+                    {
+                        Result = string.Format("ERROR {0}", exc.Message);    
+                    }
+                    
                 }
 
             }
