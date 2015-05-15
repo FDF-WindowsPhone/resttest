@@ -65,5 +65,9 @@
         <Setter Property="MinWidth" Value="0"/>
         <Setter Property="MinHeight" Value="0"/>
     </Style>
-    
+    <Style x:Key="RT_FlyoutPresenterStyle" TargetType="FlyoutPresenter">
+        <Setter Property="Background" Value="{StaticResource RT_FgColorOpposite}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource RT_FgColor}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+    </Style>
 </ResourceDictionary>

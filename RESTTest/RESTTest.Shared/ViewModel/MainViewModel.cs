@@ -4,6 +4,7 @@ using System.Text;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
@@ -75,8 +76,8 @@ namespace RESTTest.ViewModel
             }
         }
 
-        private ObservableDictionary _headers = new ObservableDictionary();
-        public ObservableDictionary Headers
+        private ObservableCollection<RTHeaders> _headers = new ObservableCollection<RTHeaders>();
+        public ObservableCollection<RTHeaders> Headers
         {
             get { return _headers; }
             set
@@ -138,6 +139,69 @@ namespace RESTTest.ViewModel
         #region Commands
 
         #region Add Header
+
+        private string _headerKey;
+
+        public string HeaderKey
+        {
+            get { return _headerKey; }
+            set
+            {
+                _headerKey = value;
+                RaisePropertyChanged();
+            }
+        }
+        private string _headerValue;
+
+        public string HeaderValue
+        {
+            get { return _headerValue; }
+            set
+            {
+                _headerValue = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private RelayCommand _addHeaderCommand;
+        public RelayCommand AddHeaderCommand
+        {
+            get { return _addHeaderCommand ?? (_addHeaderCommand = new RelayCommand(AddHeader)); }
+        }
+
+        private void AddHeader()
+        {
+            try
+            {
+                RTHeaders header = new RTHeaders()
+                { Key = HeaderKey, Value = HeaderValue };
+                Headers.Add(header);
+                HeaderKey = "";
+                HeaderValue = "";
+                RaisePropertyChanged();
+            }
+            catch (Exception)
+            {
+                
+            }
+            
+        }
+
+        private RelayCommand<ListView> _removeHeadersCommand;
+        public RelayCommand<ListView> RemoveHeadersCommand
+        {
+            get { return _removeHeadersCommand ?? (_removeHeadersCommand = new RelayCommand<ListView>(RemoveHeaders)); }
+        }
+
+        private async void RemoveHeaders(ListView selectedItems)
+        {
+            for (int index = selectedItems.SelectedItems.Count-1; index >=0; index--)
+            {
+                RTHeaders header = selectedItems.SelectedItems[index] as RTHeaders;
+                Headers.Remove(header);
+            }
+        }
+
         #endregion Add Header
 
         #region Run Command
@@ -187,10 +251,17 @@ namespace RESTTest.ViewModel
             //string Parameters = Uri.EscapeUriString("");
 
             HttpClient client = new HttpClient();
+
             try
             {
                 HttpRequestMessage request = new HttpRequestMessage(method, URI);
-                if (Raw != null)
+
+                foreach (var header in Headers)
+                {
+                    request.Headers.Add(header.Key, header.Value);
+                }
+
+                if (!String.IsNullOrEmpty(Raw))
                 {
                     try
                     {
@@ -293,7 +364,7 @@ namespace RESTTest.ViewModel
                 case "Save":
                     string name = dialog.InputText;
 
-                    RTRequest request = new RTRequest() {Method = Method, Name = name, Protocol = Protocol, Url = Url, Raw = Raw };
+                    RTRequest request = new RTRequest() {Method = Method, Name = name, Protocol = Protocol, Url = Url, Raw = Raw,Headers = Headers};
                     RequestsList.Add(request);
                     break;
                 case "Cancel":
@@ -336,6 +407,7 @@ namespace RESTTest.ViewModel
             Method = request.Method;
             Protocol = request.Protocol;
             Raw = request.Raw;
+            Headers = request.Headers;
         }
 
         private void DeleteCommandHandler(IUICommand command)

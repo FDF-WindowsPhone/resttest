@@ -5,10 +5,31 @@
     xmlns:local="using:RESTTest.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="using:Microsoft.Xaml.Interactivity" 
+    xmlns:Core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d"
     d:DesignHeight="600"
     d:DesignWidth="500" 
     DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <DataTemplate x:Key="HeadersTemplate">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Key}"
+                           HorizontalAlignment="Left"
+                           Grid.Column="0"/>
+                <TextBlock Text="{Binding Value}"
+                           HorizontalAlignment="Left"
+                           Grid.Column="1"/>
+            </Grid>
+        </DataTemplate>
+        <Style x:Key="HeadersContinerStyle" TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+    </UserControl.Resources>
 
     <StackPanel Orientation="Vertical">
         <Grid>
@@ -60,16 +81,30 @@
                            Style="{StaticResource RT_TextBlockStyle}"/>
                 <Button x:Name="BtnNewHeader" 
                         Style="{StaticResource RT_ButtonStyle}"
-                        Content="+" Grid.Column="1"/>
+                        Content="+" Grid.Column="1">
+                    <Button.Flyout>
+                        <Flyout FlyoutPresenterStyle="{StaticResource RT_FlyoutPresenterStyle}">
+                            <local:UCNewHeader/>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
                 <Button x:Name="BtnRemoveHeader" 
                         Style="{StaticResource RT_ButtonStyle}"
-                        Content="-" Grid.Column="2"/>
+                        Content="-" 
+                        Grid.Column="2"
+                        Command="{Binding RemoveHeadersCommand}" CommandParameter="{Binding ElementName=listView, Mode=OneWay}"
+                        />
             </Grid>
             <Border Grid.Row="1" 
-                    BorderBrush="{StaticResource RT_FgColor}" BorderThickness="2" Background="{StaticResource RT_FgColorOpposite}"
-                    >
-                <ListView ItemsSource="{Binding Headers}" MinHeight="40"/>
-            </Border>            
+                    BorderBrush="{StaticResource RT_FgColor}" BorderThickness="2" 
+                    Background="{StaticResource RT_FgColorOpposite}">
+                <ListView x:Name="listView" ItemsSource="{Binding Headers}" 
+                          ItemTemplate="{StaticResource HeadersTemplate}"
+                          HorizontalAlignment="Stretch"
+                          MinHeight="40" 
+                          ItemContainerStyle="{StaticResource HeadersContinerStyle}" 
+                          SelectionMode="Multiple"/>
+            </Border>
         </Grid>
         <TextBlock Text="POST Data" 
                    Style="{StaticResource RT_TextBlockStyle}"/>

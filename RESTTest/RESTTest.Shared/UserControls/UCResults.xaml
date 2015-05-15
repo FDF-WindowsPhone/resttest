@@ -36,7 +36,7 @@
                        Text="{Binding Result}"
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                        MinHeight="200"
-                       TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+                       TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Disabled" IsTextSelectionEnabled="True"/>
         </ScrollViewer>
     </Grid>
 </UserControl>

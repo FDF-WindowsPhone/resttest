@@ -173,10 +173,8 @@
                     Visibility="Visible"
                     VerticalAlignment="Top" HorizontalAlignment="Center" >
                 <Button.Flyout>
-                    <Flyout>
-                        <Border BorderThickness="2" BorderBrush="{StaticResource RT_FgColor}">
-                            <controls:UCStore/>
-                        </Border>                        
+                    <Flyout FlyoutPresenterStyle="{StaticResource RT_FlyoutPresenterStyle}">
+                        <controls:UCStore/>
                     </Flyout>
                 </Button.Flyout>
             </Button>

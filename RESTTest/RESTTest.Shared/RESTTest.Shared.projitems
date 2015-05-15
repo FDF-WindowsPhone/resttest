@@ -20,12 +20,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Common\RelayCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\RTConsts.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\RTHeaders.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\RTRequest.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserControls\UCActions.xaml.cs">
       <DependentUpon>UCActions.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UserControls\UCInputData.xaml.cs">
       <DependentUpon>UCInputData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)UserControls\UCNewHeader.xaml.cs">
+      <DependentUpon>UCNewHeader.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)UserControls\UCResults.xaml.cs">
       <DependentUpon>UCResults.xaml</DependentUpon>
@@ -49,6 +53,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)UserControls\UCInputData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)UserControls\UCNewHeader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
